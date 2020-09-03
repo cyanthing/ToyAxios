@@ -21,7 +21,7 @@ function encode(val: string): string {
  * @param params 参数对象
  */
 export function buildURL(url: string, params?: any): string {
-  if (params) {
+  if (params === undefined) {
     return url
   }
 
