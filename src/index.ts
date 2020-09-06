@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from './types'
 import { buildURL } from './helpers/url'
 import { transformRequest } from './helpers/data'
+import { processHeaders } from './helpers/headers'
 import xhr from './xhr'
 
 /**
@@ -18,6 +19,7 @@ function axios(config: AxiosRequestConfig): void {
  */
 function processConfig(config: AxiosRequestConfig): void {
   config.url = transformURL(config)
+  config.headers = transformHeaders(config)
   config.data = transformRequestData(config)
 }
 
@@ -37,6 +39,16 @@ function transformURL(config: AxiosRequestConfig): string {
 function transformRequestData (config: AxiosRequestConfig): any {
   const { data } = config
   return transformRequest(data)
+}
+
+/**
+ * 处理请求时headers的规范
+ * @param config
+ */
+function transformHeaders (config: AxiosRequestConfig): any {
+  // 为了让逻辑走到自动添加 application/json;charset=utf-8 的 headers 的目的，这里给个默认值，不会被processHeaders的第一层判断给排除掉
+  const { headers = {}, data } = config
+  return processHeaders(headers, data)
 }
 
 export default axios
