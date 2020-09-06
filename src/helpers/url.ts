@@ -1,4 +1,4 @@
-import { isObject, isDate } from './util'
+import { isPlainObject, isDate } from './util'
 
 /**
  * encode特殊符号，但一些特别的符号需要保留，注意空格被保留成+符号
@@ -46,7 +46,7 @@ export function buildURL(url: string, params?: any): string {
     values.forEach(val => {
       if (isDate(val)) {
         val = val.toISOString()
-      } else if (isObject(val)) {
+      } else if (isPlainObject(val)) {
         val = JSON.stringify(val)
       }
       parts.push(`${encode(key)}=${encode(val)}`)
