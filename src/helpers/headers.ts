@@ -1,5 +1,4 @@
 import { isPlainObject } from './util'
-import { head } from 'shelljs'
 
 /**
  * 在使用axios时，传入的headers，例如Content-Type大小写不明确，使用该方法规范
