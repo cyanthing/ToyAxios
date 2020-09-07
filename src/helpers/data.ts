@@ -11,3 +11,18 @@ export function transformRequest (data: any): any {
 
   return data
 }
+
+/**
+ * 即使不设置responseType为JSON的时候，也能自动把JSON字符串处理成对象返回
+ * @param data
+ */
+export function transformResponse(data: any): any {
+  if (typeof data === 'string') {
+    try {
+      data = JSON.parse(data)
+    } catch (e) {
+      // do nothing
+    }
+  }
+  return data
+}
