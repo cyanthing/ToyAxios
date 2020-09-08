@@ -1,4 +1,4 @@
-import axios from '../../src/index'
+import axios, { AxiosErrorType } from '../../src/index'
 
 axios({
   method: 'get',
@@ -37,4 +37,19 @@ axios({
   console.log(res)
 }).catch((e) => {
   console.log(e)
+})
+
+
+axios({
+  method: 'get',
+  url: '/error/timeout',
+  timeout: 2000
+}).then((res) => {
+  console.log(res)
+}).catch((e: AxiosErrorType) => {
+  console.log(e.message)
+  console.log(e.config)
+  console.log(e.code)
+  console.log(e.request)
+  console.log(e.isAxiosError)
 })
